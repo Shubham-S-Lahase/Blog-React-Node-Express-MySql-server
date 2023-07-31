@@ -12,8 +12,8 @@ const register = (req, res) => {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
 
-    const q = "INSERT INTO users(`username`,`email`,`password`) VALUES (?)";
-    const values = [req.body.username, req.body.email, hash];
+    const q = "INSERT INTO users(`username`,`email`,`password`, `img`) VALUES (?)";
+    const values = [req.body.username, req.body.email, hash, req.body.img];
 
     db.query(q, [values], (err, data) => {
       if (err) return res.status(500).json(err);
