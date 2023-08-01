@@ -19,12 +19,13 @@ const addComment = (req, res) => {
 
 const getComments = (req, res) => {
   const { id } = req.params;
-  const q = "SELECT * FROM comments WHERE post_id = ?";
+  const q = "SELECT comments.*, users.username FROM comments JOIN users ON comments.user_id = users.id WHERE post_id = ?";
   db.query(q, [id], (err, result) => {
     if (err) return res.status(500).send(err);
     res.status(200).json(result);
   });
 };
+
 
 const deleteComment = (req, res) => {
   const token = req.cookies.access_token;
