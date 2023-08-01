@@ -3,6 +3,8 @@ const postRoutes = require("./routes/posts");
 const authRoutes = require("./routes/auth");
 const cookieParser = require("cookie-parser");
 const multer = require("multer");
+const commentRoutes = require("./routes/comments");
+const likeRoutes = require("./routes/likes");
 
 const app = express();
 
@@ -28,6 +30,8 @@ const storage = multer.diskStorage({
 
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api", commentRoutes);
+app.use("/api/likes", likeRoutes);
 
 app.listen(4000, () => {
     console.log("Server running on PORT:4000 && Connected");
