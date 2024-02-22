@@ -12,7 +12,7 @@ const addComment = (req, res) => {
     const q = "INSERT INTO comments (post_id, user_id, text) VALUES (?, ?, ?)";
     db.query(q, [post_id, user_id, text], (err, result) => {
       if (err) return res.status(500).send(err);
-      res.status(201).send("Comment created");
+      res.status(201).json({ message: "Comment added!", id: result.insertId });
     });
   });
 };

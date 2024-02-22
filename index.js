@@ -31,7 +31,7 @@ const storage = multer.diskStorage({
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api", commentRoutes);
-app.use("/api/likes", likeRoutes);
+app.use("/api", likeRoutes);
 
 app.listen(4000, () => {
     console.log("Server running on PORT:4000 && Connected");
