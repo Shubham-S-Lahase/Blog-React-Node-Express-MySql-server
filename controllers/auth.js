@@ -3,11 +3,18 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const register = (req, res) => {
+  console.log("Request body:", req.body);
   const q = "SELECT * FROM users WHERE email = ? OR username = ?";
 
   db.query(q, [req.body.email, req.body.username], (err, data) => {
-    if (err) return res.status(500).json(err);
-    if (data.length) return res.status(409).json("User already exists!");
+    if (err) {
+      console.log("Error selecting users:", err);
+      return res.status(500).json(err);
+    }
+    if (data.length) {
+      console.log("User already exists!");
+      return res.status(409).json("User already exists!");
+    }
 
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
@@ -16,7 +23,11 @@ const register = (req, res) => {
     const values = [req.body.username, req.body.email, hash, req.body.img];
 
     db.query(q, [values], (err, data) => {
-      if (err) return res.status(500).json(err);
+      if (err) {
+        console.log("Error inserting user:", err);
+        return res.status(500).json(err);
+      }
+      console.log("User has been created.");
       return res.status(200).json("User has been created.");
     });
   });
