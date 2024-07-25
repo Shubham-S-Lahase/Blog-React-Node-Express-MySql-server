@@ -15,6 +15,7 @@ const app = express();
 const corsOptions = {
   origin: 'https://blog-react-node-express-mysql-client.onrender.com',
   optionsSuccessStatus: 200, 
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
