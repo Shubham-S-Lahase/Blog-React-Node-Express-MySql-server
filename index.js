@@ -8,10 +8,16 @@ const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const commentRoutes = require("./routes/comments");
 const likeRoutes = require("./routes/likes");
 const path = require("path");
+const cors = require("cors");
 
 const app = express();
 
+const corsOptions = {
+  origin: 'https://blog-react-node-express-mysql-client.onrender.com',
+  optionsSuccessStatus: 200, 
+};
 
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
